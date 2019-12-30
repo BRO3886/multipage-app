@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import './screens/filters_screen.dart';
 
-import './screens/cat_screen.dart';
+import './screens/tabs_screen2.dart';
 import './screens/cat_meals.dart';
 import './screens/meal_details.dart';
 
@@ -24,12 +25,17 @@ class _MyAppState extends State<MyApp> {
           textTheme: ThemeData.light().textTheme.copyWith(
                 body1: TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
                 body2: TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
-                title: TextStyle(color: Colors.black54, fontSize: 27, fontWeight: FontWeight.bold),
+                title: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 27,
+                    fontWeight: FontWeight.bold),
               )),
       home: MyHomePage(),
       routes: {
-        MealDeatilsScreen.routename: (ctx) =>MealDeatilsScreen(),
-       CategoryMealsScreen.routename : (ctx) => CategoryMealsScreen()
+        TabsScreen.routename: (ctx) => TabsScreen(),
+        FiltersScreen.routename: (ctx) => FiltersScreen(),
+        MealDeatilsScreen.routename: (ctx) => MealDeatilsScreen(),
+        CategoryMealsScreen.routename: (ctx) => CategoryMealsScreen()
       },
     );
   }
@@ -39,10 +45,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('MealsApp'),
-      ),
-      body: CategoryScreen(),
+      body: TabsScreen(),
     );
   }
 }
