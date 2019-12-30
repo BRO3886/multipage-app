@@ -9,14 +9,16 @@ class MealItem extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
+  final Function isremoved;
 
   MealItem(
       {@required this.id,
-        @required this.title,
+      @required this.title,
       @required this.imageUrl,
       @required this.duration,
       @required this.complexity,
-      @required this.affordability});
+      @required this.affordability,
+      @required this.isremoved});
 
   String get complexityText {
     switch (complexity) {
@@ -50,8 +52,14 @@ class MealItem extends StatelessWidget {
     }
   }
 
-  void selectMeal(BuildContext context){
-    Navigator.of(context).pushNamed(MealDeatilsScreen.routename, arguments: id);
+  void selectMeal(BuildContext context) {
+    Navigator.of(context)
+        .pushNamed(MealDeatilsScreen.routename, arguments: id)
+        .then((result) {
+          if(result !=null){
+            isremoved(result);
+          }
+        });
   }
 
   @override
@@ -63,7 +71,7 @@ class MealItem extends StatelessWidget {
       margin: EdgeInsets.all(10),
       child: InkWell(
         splashColor: Theme.of(context).accentColor,
-        onTap: ()=>selectMeal(context),
+        onTap: () => selectMeal(context),
         child: Column(
           children: <Widget>[
             Stack(
