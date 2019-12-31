@@ -1,8 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/dummydata.dart';
 
-class MealDeatilsScreen extends StatelessWidget {
+class MealDeatilsScreen extends StatefulWidget {
   static const routename = '/meal-details';
+
+  final Function toggleFavorite;
+  final Function checkFav;
+
+  MealDeatilsScreen(this.toggleFavorite, this.checkFav);
+
+  @override
+  _MealDeatilsScreenState createState() => _MealDeatilsScreenState();
+}
+
+class _MealDeatilsScreenState extends State<MealDeatilsScreen> {
+  final GlobalKey<ScaffoldState> mealDetailsScaffoldkey =
+      GlobalKey<ScaffoldState>();
+  _showSnackBarPositive() {
+    final snackbar = SnackBar(
+      content: Text('Added to Favorites'),
+      backgroundColor: Colors.green,
+      duration: Duration(seconds: 1),
+    );
+    mealDetailsScaffoldkey.currentState.showSnackBar(snackbar);
+  }
+
+  _showSnackBarNegative() {
+    final snackbar = SnackBar(
+      content: Text('Removed from Favorites'),
+      backgroundColor: Colors.red,
+      duration: Duration(seconds: 1),
+    );
+    mealDetailsScaffoldkey.currentState.showSnackBar(snackbar);
+  }
 
   Widget buildSectionTile(BuildContext context, List<String> someList) {
     return Container(
@@ -34,14 +64,37 @@ class MealDeatilsScreen extends StatelessWidget {
     );
   }
 
+  List<Widget> iconList = [
+    Icon(Icons.star_border),
+    Icon(Icons.star),
+  ];
+
   @override
   Widget build(BuildContext context) {
     final String mealId = ModalRoute.of(context).settings.arguments as String;
     final selectedMeal = DUMMY_MEALS.firstWhere((meal) => meal.id == mealId);
 
     return Scaffold(
+      key: mealDetailsScaffoldkey,
       appBar: AppBar(
         title: Text(selectedMeal.title),
+        actions: <Widget>[
+          IconButton(
+            icon: (widget.checkFav(mealId))
+                ? Icon(Icons.star)
+                : Icon(Icons.star_border),
+            onPressed: () {
+              setState(() {
+                widget.toggleFavorite(selectedMeal.id);
+                if (widget.checkFav(mealId)) {
+                  _showSnackBarPositive();
+                } else {
+                  _showSnackBarNegative();
+                }
+              });
+            },
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -93,7 +146,6 @@ class MealDeatilsScreen extends StatelessWidget {
           Navigator.of(context).pop(mealId);
         },
       ),
-      
     );
   }
 }

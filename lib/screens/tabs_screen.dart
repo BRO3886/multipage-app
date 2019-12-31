@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './cat_screen.dart';
-import './fav_screen.dart';
+//import './fav_screen.dart';
 
 class TabsScreen extends StatefulWidget {
   static const routename = 'TabsScreen';
@@ -33,7 +33,7 @@ class _TabsScreenState extends State<TabsScreen> {
         body: TabBarView(
           children: <Widget>[
             CategoryScreen(),
-            FavoritesScreen(),
+            //FavoritesScreen(),
           ],
         ),
       ),

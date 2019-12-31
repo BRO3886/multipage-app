@@ -13,7 +13,7 @@ class FiltersScreen extends StatefulWidget {
 }
 
 class _FiltersScreenState extends State<FiltersScreen> {
-  final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> filterScreenscaffoldkey = GlobalKey<ScaffoldState>();
 
   bool _isglutenfree = false;
   bool _vegetarian = false;
@@ -35,13 +35,13 @@ class _FiltersScreenState extends State<FiltersScreen> {
       backgroundColor: Colors.green,
       duration: Duration(seconds: 1),
     );
-    scaffoldkey.currentState.showSnackBar(snackbar);
+    filterScreenscaffoldkey.currentState.showSnackBar(snackbar);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldkey,
+      key: filterScreenscaffoldkey,
       appBar: AppBar(
         title: Text('Filters'),
         actions: <Widget>[
